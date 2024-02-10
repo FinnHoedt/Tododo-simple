@@ -8,6 +8,7 @@ import {
     onSnapshot,
     query,
     updateDoc,
+    where,
 } from "firebase/firestore";
 import AddTask from "./AddTask";
 import TaskList from "./TaskList";
@@ -18,7 +19,11 @@ export interface todo {
     done: boolean;
 }
 
-export default function ToDo() {
+interface ToDoProps {
+    user: String | null;
+}
+
+export default function ToDo({ user }: ToDoProps) {
     const [todos, setTodos] = useState<todo[]>([]);
     const [filter, setFilter] = useState<string>("all");
     const [todo, setTodo] = useState<todo>({ task: "", done: false });
@@ -27,10 +32,12 @@ export default function ToDo() {
     const handleAddTask = async (event: React.FormEvent) => {
         event?.preventDefault();
         if (todo.task === "") return;
+        console.log(user);
         try {
             const docRef = await addDoc(collection(db, "todos"), {
                 task: todo.task,
                 done: todo.done,
+                userId: user,
             });
             console.log("Document written with ID: ", docRef.id);
         } catch (e) {
@@ -41,7 +48,7 @@ export default function ToDo() {
 
     // get from database
     useEffect(() => {
-        const q = query(collection(db, "todos"));
+        const q = query(collection(db, "todos"), where("userId", "==", user));
         onSnapshot(q, (querySnapshot) => {
             let newTodos: todo[] = [];
 
@@ -95,9 +102,6 @@ export default function ToDo() {
 
     return (
         <main className="w-full p-3 flex flex-col space-y-5 items-center">
-            <h1 className="text-5xl font-serif font-bold uppercase p-3">
-                tododo
-            </h1>
             <div className="flex flex-col space-y-5 w-full max-w-[600px] ">
                 <div className="flex flex-col space-y-5">
                     <AddTask
