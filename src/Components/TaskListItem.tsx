@@ -1,5 +1,6 @@
 import React from "react";
 import { todo } from "./ToDo";
+import Trash from "../assets/Trash.svg";
 
 interface TaskListItemProps {
     todo: todo;
@@ -36,11 +37,7 @@ export default function TaskListItem({
                 className="p-2 rounded-md bg-gray-200 text-white hover:bg-gray-300 hover:scale-105 transition duration-300 ease-in-out"
                 onClick={handleDeleteTask}
             >
-                <img
-                    className="w-5 h-5"
-                    src="../Icons/Trash icon solid.svg"
-                    alt="trash"
-                />
+                <img src={Trash} className="w-5 h-5" alt="trash icon" />
             </button>
         </li>
     );

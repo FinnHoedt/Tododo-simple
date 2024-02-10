@@ -42,7 +42,7 @@ export default function ToDo() {
     // get from database
     useEffect(() => {
         const q = query(collection(db, "todos"));
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        onSnapshot(q, (querySnapshot) => {
             let newTodos: todo[] = [];
 
             querySnapshot.forEach((doc) => {
