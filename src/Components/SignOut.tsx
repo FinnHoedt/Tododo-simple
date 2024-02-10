@@ -5,9 +5,8 @@ interface SignOutProps {
 }
 
 export default function SignOut({ setUser }: SignOutProps) {
-    async function logout() {
+    function logout() {
         try {
-            await auth.signOut();
             setUser(null);
             localStorage.removeItem("userId");
         } catch (e) {
