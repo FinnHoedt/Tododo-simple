@@ -8,7 +8,6 @@ import {
     onSnapshot,
     query,
     updateDoc,
-    where,
 } from "firebase/firestore";
 import AddTask from "./AddTask";
 import TaskList from "./TaskList";
@@ -34,10 +33,9 @@ export default function ToDo({ user }: ToDoProps) {
         if (todo.task === "") return;
         console.log(user);
         try {
-            const docRef = await addDoc(collection(db, "todos"), {
+            const docRef = await addDoc(collection(db, `todos/${user}/tasks`), {
                 task: todo.task,
                 done: todo.done,
-                userId: user,
             });
             console.log("Document written with ID: ", docRef.id);
         } catch (e) {
@@ -48,7 +46,7 @@ export default function ToDo({ user }: ToDoProps) {
 
     // get from database
     useEffect(() => {
-        const q = query(collection(db, "todos"), where("userId", "==", user));
+        const q = query(collection(db, `todos/${user}/tasks`));
         onSnapshot(q, (querySnapshot) => {
             let newTodos: todo[] = [];
 
@@ -68,7 +66,7 @@ export default function ToDo({ user }: ToDoProps) {
                 setTodos(newTodos);
             }
         });
-    }, [filter]);
+    }, [filter, user]);
 
     // delete from database
     const handleDeleteTodo = async (id: string) => {

@@ -12,7 +12,6 @@ export default function SignIn({ setUser }: SignInProps) {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
             setUser(user?.uid);
-
             if (user?.uid) localStorage.setItem("userId", user?.uid);
         } catch (e) {
             console.error(e);
