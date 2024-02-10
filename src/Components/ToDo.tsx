@@ -72,14 +72,14 @@ export default function ToDo({ user }: ToDoProps) {
     const handleDeleteTodo = async (id: string) => {
         const toDoToDelete = todos.find((todo) => todo.id === id) as todo;
         if (!toDoToDelete.id) return;
-        await deleteDoc(doc(db, "todos", toDoToDelete.id));
+        await deleteDoc(doc(db, `todos/${user}/tasks`, toDoToDelete.id));
     };
 
     // update from database
     const handleCheckboxChange = async (id: string) => {
         const toDoToChange = todos.find((todo) => todo.id === id) as todo;
         if (!toDoToChange.id) return;
-        const toDoRef = doc(db, "todos", toDoToChange.id);
+        const toDoRef = doc(db, `todos/${user}/tasks`, toDoToChange.id);
         await updateDoc(toDoRef, {
             done: !toDoToChange.done,
         });
