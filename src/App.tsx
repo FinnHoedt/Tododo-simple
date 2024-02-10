@@ -14,7 +14,7 @@ function App() {
                 className="mt-5 grid"
                 style={{ gridTemplateColumns: "1fr auto 1fr" }}
             >
-                <h1 className="font-bold col-start-2 text-4xl text-center font-serif">
+                <h1 className="font-bold col-start-2 text-4xl md:text-5xl text-center font-serif">
                     ToDoDo
                 </h1>
                 {user && (
