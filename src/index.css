@@ -1,0 +1,19 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+    --background-hex: #8eb8e5;
+    --text-rgb: #397367;
+}
+
+body {
+    color: var(--text-rgb);
+    background: var(--background-hex);
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}
