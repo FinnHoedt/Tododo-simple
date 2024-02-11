@@ -1,5 +1,3 @@
-import { auth } from "../firebase";
-
 interface SignOutProps {
     setUser: React.Dispatch<React.SetStateAction<String | null>>;
 }

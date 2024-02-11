@@ -1,11 +1,13 @@
 import TaskListItem from "./TaskListItem";
 import { todo } from "./ToDo";
+import TaskLoaderComponent from "./TaskLoaderComponent";
 
 export interface TaskListProps {
     todos: todo[];
     handleFilter: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     handleCheckboxChange: (id: string) => void;
     handleDeleteTask: (id: string) => void;
+    isLoading: boolean;
 }
 
 export default function TaskList({
@@ -13,6 +15,7 @@ export default function TaskList({
     handleFilter,
     handleCheckboxChange,
     handleDeleteTask,
+    isLoading,
 }: TaskListProps) {
     return (
         <div>
@@ -29,20 +32,26 @@ export default function TaskList({
                     <option value="undone">Unerledigte</option>
                 </select>
             </div>
-            <ul className="space-y-2">
-                {todos.map((todo, index) => (
-                    <TaskListItem
-                        key={index}
-                        todo={todo}
-                        handleCheckboxChange={() =>
-                            handleCheckboxChange(todo.id as string)
-                        }
-                        handleDeleteTask={() =>
-                            handleDeleteTask(todo.id as string)
-                        }
-                    />
-                ))}
-            </ul>
+            {isLoading ? (
+                <div className="flex mt-20 justify-center">
+                    <TaskLoaderComponent />
+                </div>
+            ) : (
+                <ul className="space-y-2">
+                    {todos.map((todo, index) => (
+                        <TaskListItem
+                            key={index}
+                            todo={todo}
+                            handleCheckboxChange={() =>
+                                handleCheckboxChange(todo.id as string)
+                            }
+                            handleDeleteTask={() =>
+                                handleDeleteTask(todo.id as string)
+                            }
+                        />
+                    ))}
+                </ul>
+            )}
         </div>
     );
 }

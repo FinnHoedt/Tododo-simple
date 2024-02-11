@@ -26,6 +26,7 @@ export default function ToDo({ user }: ToDoProps) {
     const [todos, setTodos] = useState<todo[]>([]);
     const [filter, setFilter] = useState<string>("all");
     const [todo, setTodo] = useState<todo>({ task: "", done: false });
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     // add to database
     const handleAddTask = async (event: React.FormEvent) => {
@@ -46,6 +47,8 @@ export default function ToDo({ user }: ToDoProps) {
 
     // get from database
     useEffect(() => {
+        setIsLoading(true);
+
         const q = query(collection(db, `todos/${user}/tasks`));
         onSnapshot(q, (querySnapshot) => {
             let newTodos: todo[] = [];
@@ -65,6 +68,8 @@ export default function ToDo({ user }: ToDoProps) {
             } else {
                 setTodos(newTodos);
             }
+
+            setIsLoading(false);
         });
     }, [filter, user]);
 
@@ -112,6 +117,7 @@ export default function ToDo({ user }: ToDoProps) {
                         handleFilter={handleFilter}
                         handleCheckboxChange={handleCheckboxChange}
                         handleDeleteTask={handleDeleteTodo}
+                        isLoading={isLoading}
                     />
                 </div>
             </div>
