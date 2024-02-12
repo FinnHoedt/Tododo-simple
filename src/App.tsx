@@ -1,12 +1,16 @@
 import ToDo from "./Components/ToDo";
 import SignIn from "./Components/SignIn";
 import SignOut from "./Components/SignOut";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
     const [user, setUser] = useState<String | null>(
         localStorage.getItem("userId")
     );
+
+    useEffect(() => {
+        document.title = "Tododo";
+    }, []);
 
     return (
         <>
