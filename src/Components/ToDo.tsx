@@ -16,6 +16,7 @@ export interface todo {
     id?: string;
     task: string;
     done: boolean;
+    timestamp?: Date;
 }
 
 interface ToDoProps {
@@ -37,6 +38,7 @@ export default function ToDo({ user }: ToDoProps) {
             const docRef = await addDoc(collection(db, `todos/${user}/tasks`), {
                 task: todo.task,
                 done: todo.done,
+                timestamp: new Date(),
             });
             console.log("Document written with ID: ", docRef.id);
         } catch (e) {
@@ -46,7 +48,7 @@ export default function ToDo({ user }: ToDoProps) {
     };
 
     // get from database
-    useEffect(() => {
+    useEffect((): void => {
         setIsLoading(true);
 
         const q = query(collection(db, `todos/${user}/tasks`));
@@ -58,8 +60,13 @@ export default function ToDo({ user }: ToDoProps) {
                     id: doc.id,
                     task: doc.data().task,
                     done: doc.data().done,
+                    timestamp: doc.data().timestamp.toDate(),
                 });
             });
+
+            newTodos.sort(
+                (a, b) => a.timestamp?.getTime()! - b.timestamp?.getTime()!
+            );
 
             if (filter === "done") {
                 setTodos(newTodos.filter((todo) => todo.done === true));

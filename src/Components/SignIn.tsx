@@ -22,7 +22,7 @@ export default function SignIn({ setUser }: SignInProps) {
         <div className="w-full mt-20 flex items-center justify-center">
             <button
                 onClick={login}
-                className="flex justify-center w-fit items-center px-3 m-2 py-2 bg-gray-200 bg-opacity-75 rounded-md border-2 shadow-md border-gray-600 font-bold text-3xl"
+                className="flex justify-center w-fit items-center px-3 m-2 py-2 bg-gray-50 bg-opacity-75 rounded-md border-2 shadow-md border-gray-600 font-bold text-3xl"
             >
                 <h1>Login</h1>
                 <img className="w-12 h-12" src={Google} alt="Google" />

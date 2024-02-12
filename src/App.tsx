@@ -15,7 +15,7 @@ function App() {
                 style={{ gridTemplateColumns: "1fr auto 1fr" }}
             >
                 <h1 className="font-bold col-start-2 text-4xl md:text-5xl text-center font-serif">
-                    ToDoDo
+                    {user ? "Tododo" : "Welcome to Tododo!"}
                 </h1>
                 {user && (
                     <div className="flex justify-end mr-3">
