@@ -15,7 +15,7 @@ function App() {
     return (
         <>
             <div
-                className="mt-5 grid"
+                className="mt-5 grid mb-5"
                 style={{ gridTemplateColumns: "1fr auto 1fr" }}
             >
                 <h1 className="font-bold col-start-2 text-4xl md:text-5xl text-center font-serif">

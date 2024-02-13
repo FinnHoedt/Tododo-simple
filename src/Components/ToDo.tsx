@@ -92,6 +92,15 @@ export default function ToDo({ user }: ToDoProps) {
         await deleteDoc(doc(db, `todos/${user}/tasks`, toDoToDelete.id));
     };
 
+    // delete all done todos from database
+    const deleteDoneTodos = async () => {
+        const doneTodos = todos.filter((todo) => todo.done === true);
+        doneTodos.forEach(async (todo) => {
+            if (!todo.id) return;
+            await deleteDoc(doc(db, `todos/${user}/tasks`, todo.id));
+        });
+    };
+
     // update from database
     const handleCheckboxChange = async (id: string) => {
         const toDoToChange = todos.find((todo) => todo.id === id) as todo;
@@ -116,6 +125,7 @@ export default function ToDo({ user }: ToDoProps) {
                         setFilter={setFilter}
                         handleCheckboxChange={handleCheckboxChange}
                         handleDeleteTask={handleDeleteTodo}
+                        deleteDoneTodos={deleteDoneTodos}
                         isLoading={isLoading}
                     />
                 </div>

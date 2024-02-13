@@ -1,11 +1,13 @@
 import TaskListItem from "./TaskListItem";
 import { todo } from "./ToDo";
 import TaskLoaderComponent from "./TaskLoaderComponent";
+import WhiteTrash from "../assets/Trash_white.svg";
 
 export interface TaskListProps {
     todos: todo[];
     setFilter: (filter: string) => void;
     handleCheckboxChange: (id: string) => void;
+    deleteDoneTodos: () => void;
     handleDeleteTask: (id: string) => void;
     isLoading: boolean;
 }
@@ -14,6 +16,7 @@ export default function TaskList({
     todos,
     setFilter,
     handleCheckboxChange,
+    deleteDoneTodos,
     handleDeleteTask,
     isLoading,
 }: TaskListProps) {
@@ -27,15 +30,28 @@ export default function TaskList({
                 <h3 className="font-bold text-2xl underline uppercase self-center">
                     todos:
                 </h3>
-                <select
-                    onChange={handleFilterChange}
-                    className="px-2 py-1 rounded-md bg-white text-black"
-                >
-                    <option value="all">Alle</option>
-                    <option value="done">Erledigte</option>
-                    <option value="undone">Unerledigte</option>
-                </select>
+                <div className="flex items-center space-x-5">
+                    <select
+                        onChange={handleFilterChange}
+                        className="px-2 py-[6px] rounded-md bg-white text-black font-bold border-2 border-gray-600"
+                    >
+                        <option value="all">Alle</option>
+                        <option value="done">Erledigte</option>
+                        <option value="undone">Unerledigte</option>
+                    </select>
+                    <button
+                        onClick={deleteDoneTodos}
+                        className="p-[7px] rounded-md bg-[#397367] border-2 text-white hover:bg-[#469c68d2] hover:scale-105 transition duration-300 ease-in-out"
+                    >
+                        <img
+                            src={WhiteTrash}
+                            className="w-5 h-5"
+                            alt="trash icon"
+                        />
+                    </button>
+                </div>
             </div>
+            <div></div>
             {isLoading ? (
                 <div className="flex mt-20 justify-center">
                     <TaskLoaderComponent />
