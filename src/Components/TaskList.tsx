@@ -4,7 +4,7 @@ import TaskLoaderComponent from "./TaskLoaderComponent";
 
 export interface TaskListProps {
     todos: todo[];
-    handleFilter: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    setFilter: (filter: string) => void;
     handleCheckboxChange: (id: string) => void;
     handleDeleteTask: (id: string) => void;
     isLoading: boolean;
@@ -12,11 +12,15 @@ export interface TaskListProps {
 
 export default function TaskList({
     todos,
-    handleFilter,
+    setFilter,
     handleCheckboxChange,
     handleDeleteTask,
     isLoading,
 }: TaskListProps) {
+    function handleFilterChange(e: React.ChangeEvent<HTMLSelectElement>) {
+        setFilter(e.target.value);
+    }
+
     return (
         <div>
             <div className="flex justify-between items-center mb-4">
@@ -24,7 +28,7 @@ export default function TaskList({
                     todos:
                 </h3>
                 <select
-                    onChange={handleFilter}
+                    onChange={handleFilterChange}
                     className="px-2 py-1 rounded-md bg-white text-black"
                 >
                     <option value="all">Alle</option>

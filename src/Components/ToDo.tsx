@@ -24,6 +24,7 @@ interface ToDoProps {
 }
 
 export default function ToDo({ user }: ToDoProps) {
+    const [allTodos, setAllTodos] = useState<todo[]>([]);
     const [todos, setTodos] = useState<todo[]>([]);
     const [filter, setFilter] = useState<string>("all");
     const [todo, setTodo] = useState<todo>({ task: "", done: false });
@@ -68,17 +69,21 @@ export default function ToDo({ user }: ToDoProps) {
                 (a, b) => a.timestamp?.getTime()! - b.timestamp?.getTime()!
             );
 
-            if (filter === "done") {
-                setTodos(newTodos.filter((todo) => todo.done === true));
-            } else if (filter === "undone") {
-                setTodos(newTodos.filter((todo) => todo.done === false));
-            } else {
-                setTodos(newTodos);
-            }
-
+            setAllTodos(newTodos);
             setIsLoading(false);
         });
-    }, [filter, user]);
+    }, [user]);
+
+    // filter todos
+    useEffect(() => {
+        if (filter === "done") {
+            setTodos(allTodos.filter((todo) => todo.done === true));
+        } else if (filter === "undone") {
+            setTodos(allTodos.filter((todo) => todo.done === false));
+        } else {
+            setTodos(allTodos);
+        }
+    }, [allTodos, filter]);
 
     // delete from database
     const handleDeleteTodo = async (id: string) => {
@@ -97,19 +102,6 @@ export default function ToDo({ user }: ToDoProps) {
         });
     };
 
-    const handleFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const filter = e.target.value;
-        setFilter(filter);
-
-        if (filter === "all") {
-            setTodos(todos);
-        } else if (filter === "done") {
-            setTodos(todos.filter((todo) => todo.done === true));
-        } else if (filter === "undone") {
-            setTodos(todos.filter((todo) => todo.done === false));
-        }
-    };
-
     return (
         <main className="w-full p-3 flex flex-col space-y-5 items-center">
             <div className="flex flex-col space-y-5 w-full max-w-[600px] ">
@@ -121,7 +113,7 @@ export default function ToDo({ user }: ToDoProps) {
                     />
                     <TaskList
                         todos={todos}
-                        handleFilter={handleFilter}
+                        setFilter={setFilter}
                         handleCheckboxChange={handleCheckboxChange}
                         handleDeleteTask={handleDeleteTodo}
                         isLoading={isLoading}
