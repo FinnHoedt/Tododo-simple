@@ -41,11 +41,11 @@ export default function TaskList({
                     </select>
                     <button
                         onClick={deleteDoneTodos}
-                        className="p-[7px] rounded-md bg-[#397367] border-2 text-white hover:bg-[#469c68d2] hover:scale-105 transition duration-300 ease-in-out"
+                        className="w-9 h-9 rounded-md bg-[#397367] border-2 text-white hover:bg-[#469c68d2] hover:scale-105 transition duration-300 ease-in-out"
                     >
                         <img
                             src={WhiteTrash}
-                            className="w-5 h-5"
+                            className="w-5 h-5 m-auto"
                             alt="trash icon"
                         />
                     </button>
