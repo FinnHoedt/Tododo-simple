@@ -4,7 +4,7 @@ import SignOut from "./Components/SignOut";
 import { useEffect, useState } from "react";
 
 function App() {
-    const [user, setUser] = useState<String | null>(
+    const [user, setUser] = useState<string | null>(
         localStorage.getItem("userId")
     );
 

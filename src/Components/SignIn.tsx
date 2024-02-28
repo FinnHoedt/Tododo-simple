@@ -1,9 +1,10 @@
 import { auth, provider } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
 import Google from "../assets/google_icon.png";
+import React from "react";
 
 interface SignInProps {
-    setUser: React.Dispatch<React.SetStateAction<String | null>>;
+    setUser: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export default function SignIn({ setUser }: SignInProps) {
