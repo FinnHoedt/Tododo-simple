@@ -29,7 +29,7 @@ export default function AddTask({
                 className="bg-white text-black p-2 rounded-md border border-gray-500 shadow-none hover:shadow-md hover:bg-gray-200 transition duration-300 ease-in-out"
                 type="submit"
             >
-                Hinzufügen
+                Add to List
             </button>
         </form>
     );
