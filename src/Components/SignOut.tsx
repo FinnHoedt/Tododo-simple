@@ -1,5 +1,7 @@
+import React from "react";
+
 interface SignOutProps {
-    setUser: React.Dispatch<React.SetStateAction<String | null>>;
+    setUser: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export default function SignOut({ setUser }: SignOutProps) {

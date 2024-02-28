@@ -20,7 +20,7 @@ export interface todo {
 }
 
 interface ToDoProps {
-    user: String | null;
+    user: string | null;
 }
 
 export default function ToDo({ user }: ToDoProps) {
@@ -54,7 +54,7 @@ export default function ToDo({ user }: ToDoProps) {
 
         const q = query(collection(db, `todos/${user}/tasks`));
         onSnapshot(q, (querySnapshot) => {
-            let newTodos: todo[] = [];
+            const newTodos: todo[] = [];
 
             querySnapshot.forEach((doc) => {
                 newTodos.push({
@@ -77,9 +77,9 @@ export default function ToDo({ user }: ToDoProps) {
     // filter todos
     useEffect(() => {
         if (filter === "done") {
-            setTodos(allTodos.filter((todo) => todo.done === true));
+            setTodos(allTodos.filter((todo) => todo.done));
         } else if (filter === "undone") {
-            setTodos(allTodos.filter((todo) => todo.done === false));
+            setTodos(allTodos.filter((todo) => !todo.done));
         } else {
             setTodos(allTodos);
         }
@@ -94,11 +94,11 @@ export default function ToDo({ user }: ToDoProps) {
 
     // delete all done todos from database
     const deleteDoneTodos = async () => {
-        const doneTodos = todos.filter((todo) => todo.done === true);
-        doneTodos.forEach(async (todo) => {
-            if (!todo.id) return;
-            await deleteDoc(doc(db, `todos/${user}/tasks`, todo.id));
-        });
+        const doneTodos = todos.filter((todo) => todo.done);
+        for (const todo1 of doneTodos) {
+            if (!todo1.id) continue;
+            await deleteDoc(doc(db, `todos/${user}/tasks`, todo1.id));
+        }
     };
 
     // update from database
