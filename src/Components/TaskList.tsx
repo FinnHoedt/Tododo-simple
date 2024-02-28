@@ -2,6 +2,7 @@ import TaskListItem from "./TaskListItem";
 import { todo } from "./ToDo";
 import TaskLoaderComponent from "./TaskLoaderComponent";
 import WhiteTrash from "../assets/Trash_white.svg";
+import React from "react";
 
 export interface TaskListProps {
     todos: todo[];
@@ -35,9 +36,9 @@ export default function TaskList({
                         onChange={handleFilterChange}
                         className="px-2 py-[6px] rounded-md bg-white text-black font-bold border-2 border-gray-600"
                     >
-                        <option value="all">Alle</option>
-                        <option value="done">Erledigte</option>
-                        <option value="undone">Unerledigte</option>
+                        <option value="all">All</option>
+                        <option value="done">Done</option>
+                        <option value="undone">Ongoing</option>
                     </select>
                     <button
                         onClick={deleteDoneTodos}
